@@ -1,3 +1,3 @@
 output "component_arn" {
-  value = aws_cloudformation_stack.this.outputs.componentArn
+  value = aws_cloudformation_stack.this.outputs["componentArn"]
 }
