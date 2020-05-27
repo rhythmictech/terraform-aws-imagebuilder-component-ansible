@@ -32,9 +32,10 @@ variable "name" {
   type        = string
 }
 
+# TODO: add validation
 variable "platform" {
-  default     = "linux"
-  description = "platform of component (linux or windows)"
+  default     = "Linux"
+  description = "platform of component (Linux or Windows)"
   type        = string
 }
 
