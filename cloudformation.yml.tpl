@@ -23,3 +23,7 @@ Resources:
       Data: |
         ${indent(8, data)}
       %{~ endif ~}
+Outputs:
+  componentArn:
+    Description: ARN of the created component
+    Value: !Ref "imageBuildComponent"
