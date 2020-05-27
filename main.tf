@@ -31,22 +31,3 @@ resource "aws_cloudformation_stack" "this" {
 
   tags = var.tags
 }
-
-# resource "local_file" "foo" {
-#   content = templatefile("${path.module}/cloudformation.yml.tpl", {
-#     change_description = var.change_description
-#     data               = local.data
-#     description        = var.description
-#     kms_key_id         = var.kms_key_id
-#     name               = var.name
-#     platform           = var.platform
-#     uri                = var.data_uri
-#     version            = var.component_version
-
-#     tags = merge(
-#       var.tags,
-#       { Name : var.name }
-#     )
-#   })
-#   filename = "${path.module}/test.yml"
-# }
