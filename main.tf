@@ -29,5 +29,8 @@ resource "aws_cloudformation_stack" "this" {
     )
   })
 
-  tags = var.tags
+  tags = merge(
+    var.tags,
+    { Name : "${var.name}-stack" }
+  )
 }
