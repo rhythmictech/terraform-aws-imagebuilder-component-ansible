@@ -1,5 +1,5 @@
 Resources:
-  imageBuildComponent:
+  ImageBuildComponent:
     Type: AWS::ImageBuilder::Component
     Properties:
       Name: ${name}
@@ -24,6 +24,6 @@ Resources:
         ${indent(8, data)}
       %{~ endif ~}
 Outputs:
-  componentArn:
+  ComponentArn:
     Description: ARN of the created component
-    Value: !Ref "imageBuildComponent"
+    Value: !Ref "ImageBuildComponent"
