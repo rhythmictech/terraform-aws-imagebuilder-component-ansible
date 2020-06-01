@@ -13,6 +13,11 @@ resource "aws_cloudformation_stack" "this" {
   on_failure         = "ROLLBACK"
   timeout_in_minutes = var.cloudformation_timeout
 
+  tags = merge(
+    var.tags,
+    { Name : "${var.name}-stack" }
+  )
+
   template_body = templatefile("${path.module}/cloudformation.yml.tpl", {
     change_description = var.change_description
     data               = local.data
@@ -28,9 +33,4 @@ resource "aws_cloudformation_stack" "this" {
       { Name : var.name }
     )
   })
-
-  tags = merge(
-    var.tags,
-    { Name : "${var.name}-stack" }
-  )
 }
