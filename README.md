@@ -1,4 +1,4 @@
-# terraform-aws-imagebuiluder-component-ansible [![](https://github.com/rhythmictech/terraform-aws-imagebuiluder-component-ansible/workflows/pre-commit-check/badge.svg)](https://github.com/rhythmictech/terraform-aws-imagebuiluder-component-ansible/actions) <a href="https://twitter.com/intent/follow?screen_name=RhythmicTech"><img src="https://img.shields.io/twitter/follow/RhythmicTech?style=social&logo=RhythmicTech" alt="follow on Twitter"></a>
+# terraform-aws-imagebuiluder-component-ansible [![](https://github.com/rhythmictech/terraform-aws-imagebuilder-component-ansible/workflows/pre-commit-check/badge.svg)](https://github.com/rhythmictech/terraform-aws-imagebuilder-component-ansible/actions) <a href="https://twitter.com/intent/follow?screen_name=RhythmicTech"><img src="https://img.shields.io/twitter/follow/RhythmicTech?style=social&logo=RhythmicTech" alt="follow on Twitter"></a>
 Terraform module that creates EC2 Image Builder components with CloudFormation
 
 ## Example
