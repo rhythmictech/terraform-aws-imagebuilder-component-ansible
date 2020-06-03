@@ -2,7 +2,19 @@
 A basic example for this repository
 
 ## Code
-Look to [main.tf](./main.tf), or be helpful and copy/paste that code here.
+```hcl
+module "test_component" {
+  source  = "rhythmictech/imagebuilder-component-ansible/aws"
+  version = "~> 0.2.0"
+
+  component_version = "1.0.0"
+  description       = "Testing component"
+  name              = "testing-component"
+  playbook_dir      = "packer-generic-images/base"
+  playbook_repo     = "https://github.com/rhythmictech/packer-generic-images.git"
+  tags              = local.tags
+}
+```
 
 ## Applying
 ```

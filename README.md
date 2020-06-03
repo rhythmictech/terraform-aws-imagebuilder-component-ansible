@@ -5,7 +5,7 @@ Terraform module that creates EC2 Image Builder components with CloudFormation
 ```hcl
 module "test_component" {
   source  = "rhythmictech/imagebuilder-component-ansible/aws"
-  version = "~> 0.1.0"
+  version = "~> 0.2.0"
 
   component_version = "1.0.0"
   description       = "Testing component"
@@ -22,38 +22,38 @@ This module bridges the gap allowing Terraform to create EC2 Image Builder compo
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-| Name | Version |
-|------|---------|
+| Name      | Version   |
+|-----------|-----------|
 | terraform | >= 0.12.2 |
-| aws | ~> 2.44 |
+| aws       | ~> 2.44   |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | ~> 2.44 |
+| aws  | ~> 2.44 |
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| component\_version | Version of the component | `string` | n/a | yes |
-| name | name to use for component | `string` | n/a | yes |
-| playbook\_repo | git url for repo where ansible code lives | `string` | n/a | yes |
-| change\_description | description of changes since last version | `string` | `null` | no |
-| cloudformation\_timeout | How long to wait (in minutes) for CFN to apply before giving up | `number` | `10` | no |
-| data\_uri | Use this to override the component document with one at a particualar URL endpoint | `string` | `null` | no |
-| description | description of component | `string` | `null` | no |
-| kms\_key\_id | KMS key to use for encryption | `string` | `null` | no |
-| platform | platform of component (Linux or Windows) | `string` | `"Linux"` | no |
-| playbook\_dir | directory where playbook and requirements are found (if not root of repo) | `string` | `null` | no |
-| playbook\_file | path to playbook file, relative to `playbook_dir` | `string` | `"provision.yml"` | no |
-| tags | map of tags to use for CFN stack and component | `map(string)` | `{}` | no |
+| Name                    | Description                                                                        | Type          | Default           | Required |
+|-------------------------|------------------------------------------------------------------------------------|---------------|-------------------|:--------:|
+| component\_version      | Version of the component                                                           | `string`      | n/a               |   yes    |
+| name                    | name to use for component                                                          | `string`      | n/a               |   yes    |
+| playbook\_repo          | git url for repo where ansible code lives                                          | `string`      | n/a               |   yes    |
+| change\_description     | description of changes since last version                                          | `string`      | `null`            |    no    |
+| cloudformation\_timeout | How long to wait (in minutes) for CFN to apply before giving up                    | `number`      | `10`              |    no    |
+| data\_uri               | Use this to override the component document with one at a particualar URL endpoint | `string`      | `null`            |    no    |
+| description             | description of component                                                           | `string`      | `null`            |    no    |
+| kms\_key\_id            | KMS key to use for encryption                                                      | `string`      | `null`            |    no    |
+| platform                | platform of component (Linux or Windows)                                           | `string`      | `"Linux"`         |    no    |
+| playbook\_dir           | directory where playbook and requirements are found (if not root of repo)          | `string`      | `null`            |    no    |
+| playbook\_file          | path to playbook file, relative to `playbook_dir`                                  | `string`      | `"provision.yml"` |    no    |
+| tags                    | map of tags to use for CFN stack and component                                     | `map(string)` | `{}`              |    no    |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
+| Name           | Description                            |
+|----------------|----------------------------------------|
 | component\_arn | ARN of the EC2 Image Builder Component |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
