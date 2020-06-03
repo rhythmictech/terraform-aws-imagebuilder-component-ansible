@@ -2,7 +2,7 @@
 
 echo 'installing brew packages'
 brew tap liamg/tfsec
-brew install tfenv tflint terraform-docs pre-commit liamg/tfsec/tfsec
+brew install tfenv tflint terraform-docs pre-commit liamg/tfsec/tfsec coreutils
 
 echo 'installing pre-commit hooks'
 pre-commit install
@@ -12,4 +12,5 @@ git config --global init.templateDir ~/.git-template
 pre-commit init-templatedir ~/.git-template
 
 echo 'installing terraform with tfenv'
-tfenv install
+tfenv install min-required
+tfenv use min-required
