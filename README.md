@@ -24,7 +24,7 @@ This module bridges the gap allowing Terraform to create EC2 Image Builder compo
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12.0 |
+| terraform | >= 0.12.2 |
 | aws | ~> 2.44 |
 
 ## Providers
