@@ -1,3 +1,4 @@
 output "component_arn" {
-  value = aws_cloudformation_stack.this.outputs["ComponentArn"]
+  description = "ARN of the EC2 Image Builder Component"
+  value       = aws_cloudformation_stack.this.outputs["ComponentArn"]
 }

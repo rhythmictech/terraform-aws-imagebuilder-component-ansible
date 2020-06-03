@@ -54,6 +54,7 @@ variable "playbook_dir" {
 variable "playbook_file" {
   default     = "provision.yml"
   description = "path to playbook file, relative to `playbook_dir`"
+  type        = string
 }
 
 variable "playbook_repo" {
