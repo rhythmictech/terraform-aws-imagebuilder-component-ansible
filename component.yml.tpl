@@ -20,6 +20,14 @@ phases:
         action: ExecuteBash
         inputs:
           commands:
+            # Get ssh key
+            %{~ if ssh_key_name != null ~}
+            # Install jq
+            - sudo yum install -y jq
+            - mkdir -p ~/.ssh
+            - aws secretsmanager get-secret-value --secret-id ${ ssh_key_name } | jq -r '.SecretString.private_key' > ~/.ssh/git_rsa
+            - ssh-add ~/.ssh/git_rsa
+            %{~ endif ~}
             - git clone --depth 1 ${playbook_repo}
       - name: run-playbook
         action: ExecuteBash

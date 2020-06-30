@@ -62,6 +62,18 @@ variable "playbook_repo" {
   type        = string
 }
 
+variable "ssh_key_secret_arn" {
+  default     = null
+  description = "ARN of a secretsmanager secret containing an SSH key (use arn OR name, not both)"
+  type        = string
+}
+
+variable "ssh_key_secret_name" {
+  default     = null
+  description = "Name of a secretsmanager secret containing an SSH key (use arn OR name, not both)"
+  type        = string
+}
+
 variable "tags" {
   default     = {}
   description = "map of tags to use for CFN stack and component"
