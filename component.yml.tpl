@@ -36,6 +36,7 @@ phases:
               | jq -r .private_key
               > ~/.ssh/git_rsa
             - chmod 0600 ~/.ssh/git_rsa
+            - eval "$(ssh-agent -s)"
             - ssh-add ~/.ssh/git_rsa
             %{~ endif ~}
             - git clone --depth 1 ${playbook_repo}
