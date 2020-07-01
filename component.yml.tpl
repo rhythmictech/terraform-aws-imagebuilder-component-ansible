@@ -26,8 +26,16 @@ phases:
             # Install jq
             - sudo yum install -y jq
             - mkdir -p ~/.ssh
-            - export AWS_REGION=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/\(.*\)[a-z]/\1/')
-            - aws --region $${AWS_REGION} secretsmanager get-secret-value --secret-id ${ ssh_key_name } | jq -r '.SecretString.private_key' > ~/.ssh/git_rsa
+            - >
+              aws --region
+              $(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/\(.*\)[a-z]/\1/')
+              --output json
+              secretsmanager get-secret-value
+              --secret-id ${ ssh_key_name }
+              | jq -r .SecretString
+              | jq -r .private_key
+              > ~/.ssh/git_rsa
+            - chmod 0600 ~/.ssh/git_rsa
             - ssh-add ~/.ssh/git_rsa
             %{~ endif ~}
             - git clone --depth 1 ${playbook_repo}
