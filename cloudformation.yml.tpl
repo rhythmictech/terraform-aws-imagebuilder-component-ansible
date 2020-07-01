@@ -1,6 +1,7 @@
 Resources:
   ImageBuildComponent:
     Type: AWS::ImageBuilder::Component
+    UpdateReplacePolicy: Retain
     Properties:
       Name: ${name}
       Version: ${version}
