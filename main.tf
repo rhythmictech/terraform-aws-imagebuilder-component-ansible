@@ -20,7 +20,7 @@ data "aws_secretsmanager_secret" "ssh_key" {
 }
 
 resource "aws_cloudformation_stack" "this" {
-  name               = var.name
+  name               = "${var.name}-${uuid()}"
   on_failure         = "ROLLBACK"
   timeout_in_minutes = var.cloudformation_timeout
 
@@ -44,4 +44,12 @@ resource "aws_cloudformation_stack" "this" {
       { Name : var.name }
     )
   })
+
+  lifecycle {
+    create_before_destroy = true
+
+    ignore_changes = [
+      name
+    ]
+  }
 }
