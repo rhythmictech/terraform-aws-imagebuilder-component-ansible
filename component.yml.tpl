@@ -49,4 +49,4 @@ phases:
             - sudo yum remove -y ansible
             - sudo yum autoremove -y
             - sudo rm -rf packer-generic-images
-            - sudo rm -rf ~/.ansible/roles /usr/share/anisble/roles /etc/ansible/roles
+            - sudo rm -rf ~/.ansible/roles /usr/share/ansible/roles /etc/ansible/roles
