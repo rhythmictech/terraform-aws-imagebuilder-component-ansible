@@ -26,6 +26,7 @@ phases:
             # Install jq
             - sudo yum install -y jq
             - mkdir -p ~/.ssh
+            - ssh-keyscan -p ${repo_port} ${repo_host} >> ~/.ssh/known_hosts
             - >
               aws --region
               $(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/\(.*\)[a-z]/\1/')
@@ -33,17 +34,18 @@ phases:
               secretsmanager get-secret-value
               --secret-id ${ ssh_key_name }
               | jq -r .SecretString
-              | jq -r .private_key
               > ~/.ssh/git_rsa
             - chmod 0600 ~/.ssh/git_rsa
             - eval "$(ssh-agent -s)"
             - ssh-add ~/.ssh/git_rsa
             %{~ endif ~}
-            - git clone --depth 1 ${playbook_repo}
+            - git clone --depth 1 ${playbook_repo} ansible-repo
       - name: run-playbook
         action: ExecuteBash
         inputs:
           commands:
+            - set -ex
+            - cd ansible-repo
             %{~ if playbook_dir != null ~}
             - cd ${playbook_dir}
             %{~ endif ~}
