@@ -7,9 +7,18 @@ locals {
     playbook_dir  = var.playbook_dir
     playbook_file = var.playbook_file
     playbook_repo = var.playbook_repo
+    repo_host     = try(local.repo_parts.host, null)
+    repo_port     = try(local.repo_parts.port, 22)
     ssh_key_name  = try(data.aws_secretsmanager_secret.ssh_key[0].name, null)
   })
 
+  repo_parts = try(
+    regex(
+      "^(?P<protocol>\\w+)://(?P<user>\\w+)@(?P<host>[\\w\\._-]+)(?::(?P<port>\\d+))?/(?P<user>[\\w_-]+)/(?P<repo>[\\w_-]+).git$",
+      var.playbook_repo
+    ),
+    null
+  )
 }
 
 data "aws_secretsmanager_secret" "ssh_key" {
@@ -20,7 +29,7 @@ data "aws_secretsmanager_secret" "ssh_key" {
 }
 
 resource "aws_cloudformation_stack" "this" {
-  name               = var.name
+  name               = "${var.name}-${uuid()}"
   on_failure         = "ROLLBACK"
   timeout_in_minutes = var.cloudformation_timeout
 
@@ -44,4 +53,12 @@ resource "aws_cloudformation_stack" "this" {
       { Name : var.name }
     )
   })
+
+  lifecycle {
+    create_before_destroy = true
+
+    ignore_changes = [
+      name
+    ]
+  }
 }

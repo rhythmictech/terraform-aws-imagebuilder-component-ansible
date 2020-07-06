@@ -1,6 +1,8 @@
 Resources:
   ImageBuildComponent:
     Type: AWS::ImageBuilder::Component
+    # Retaining each component when updated because the old component can't be removed until the recipe is updated
+    UpdateReplacePolicy: Retain
     Properties:
       Name: ${name}
       Version: ${version}
