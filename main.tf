@@ -8,13 +8,13 @@ locals {
     playbook_file = var.playbook_file
     playbook_repo = var.playbook_repo
     repo_host     = try(local.repo_parts.host, null)
-    repo_port     = try(local.repo_parts.port, 22)
+    repo_port     = coalesce(local.repo_parts.port, 22)
     ssh_key_name  = try(data.aws_secretsmanager_secret.ssh_key[0].name, null)
   })
 
   repo_parts = try(
     regex(
-      "^(?P<protocol>\\w+)://(?P<user>\\w+)@(?P<host>[\\w\\._-]+)(?::(?P<port>\\d+))?/(?P<user>[\\w_-]+)/(?P<repo>[\\w_-]+).git$",
+      "^(?P<protocol>\\w+)://(?P<user>\\w+@)?(?P<host>[\\w\\._-]+)(?::(?P<port>\\d+))?/(?P<git_user>[\\w_-]+)/(?P<repo>[\\w_-]+).git$",
       var.playbook_repo
     ),
     null
