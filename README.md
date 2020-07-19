@@ -1,7 +1,7 @@
 # terraform-aws-imagebuiluder-component-ansible
 
 [![tflint](https://github.com/rhythmictech/terraform-aws-imagebuiluder-component-ansible/workflows/tflint/badge.svg?branch=main&event=push)](https://github.com/rhythmictech/terraform-aws-imagebuiluder-component-ansible/actions?query=workflow%3Atflint+event%3Apush+branch%3Amain)
-[![tfsec](https://github.com/rhythmictech/terraform-aws-imagebuiluder-component-ansible /workflows/tfsec/badge.svg?branch=main&event=push)](https://github.com/rhythmictech/terraform-aws-imagebuiluder-component-ansible/actions?query=workflow%3Atfsec+event%3Apush+branch%3Amain)
+[![tfsec](https://github.com/rhythmictech/terraform-aws-imagebuiluder-component-ansible/workflows/tfsec/badge.svg?branch=main&event=push)](https://github.com/rhythmictech/terraform-aws-imagebuiluder-component-ansible/actions?query=workflow%3Atfsec+event%3Apush+branch%3Amain)
 [![yamllint](https://github.com/rhythmictech/terraform-aws-imagebuiluder-component-ansible/workflows/yamllint/badge.svg?branch=main&event=push)](https://github.com/rhythmictech/terraform-aws-imagebuiluder-component-ansible/actions?query=workflow%3Ayamllint+event%3Apush+branch%3Amain)
 [![misspell](https://github.com/rhythmictech/terraform-aws-imagebuiluder-component-ansible/workflows/misspell/badge.svg?branch=main&event=push)](https://github.com/rhythmictech/terraform-aws-imagebuiluder-component-ansible/actions?query=workflow%3Amisspell+event%3Apush+branch%3Amain)
 [![pre-commit-check](https://github.com/rhythmictech/terraform-aws-imagebuiluder-component-ansible/workflows/pre-commit-check/badge.svg?branch=main&event=push)](https://github.com/rhythmictech/terraform-aws-imagebuiluder-component-ansible/actions?query=workflow%3Apre-commit-check+event%3Apush+branch%3Amain)
