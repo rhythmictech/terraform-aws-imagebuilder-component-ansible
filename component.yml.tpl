@@ -11,7 +11,7 @@ phases:
         inputs:
           commands:
             # Install Ansible dependencies
-            - sudo yum install -y python python3 python-pip python3-pip git
+            - sudo yum install -y python python3 python-pip python3-pip git ${additional_pkgs}
             # Enable Ansible repository
             - sudo amazon-linux-extras enable ansible2
             # Install Ansible
