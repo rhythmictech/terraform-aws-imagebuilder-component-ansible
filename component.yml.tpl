@@ -44,6 +44,7 @@ phases:
         action: ExecuteBash
         inputs:
           commands:
+            - export GIT_SSH_COMMAND='ssh -i ~/.ssh/git_rsa -o IdentitiesOnly=yes'
             - set -ex
             - cd ansible-repo
             %{~ if playbook_dir != null ~}
