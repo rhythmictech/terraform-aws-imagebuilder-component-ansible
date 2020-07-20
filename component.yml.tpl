@@ -51,7 +51,7 @@ phases:
             - cd ${playbook_dir}
             %{~ endif ~}
             # Install playbook dependencies
-            - ansible-galaxy install -f -r requirements.yml || true
+            - GIT_SSH_COMMAND='ssh -i ~/.ssh/git_rsa -o IdentitiesOnly=yes' ansible-galaxy install -f -r requirements.yml || true
             # Wait for cloud-init
             - while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done
             # Run playbook
