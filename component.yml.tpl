@@ -44,14 +44,16 @@ phases:
         action: ExecuteBash
         inputs:
           commands:
+            %{~ if ssh_key_name != null ~}
             - export GIT_SSH_COMMAND='ssh -i ~/.ssh/git_rsa -o IdentitiesOnly=yes'
+            %{~ endif ~}
             - set -ex
             - cd ansible-repo
             %{~ if playbook_dir != null ~}
             - cd ${playbook_dir}
             %{~ endif ~}
             # Install playbook dependencies
-            - GIT_SSH_COMMAND='ssh -i ~/.ssh/git_rsa -o IdentitiesOnly=yes' ansible-galaxy install -f -r requirements.yml || true
+            - ansible-galaxy install -f -r requirements.yml || true
             # Wait for cloud-init
             - while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done
             # Run playbook
