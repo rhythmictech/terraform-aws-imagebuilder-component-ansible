@@ -44,13 +44,15 @@ phases:
         action: ExecuteBash
         inputs:
           commands:
-            %{~ if ssh_key_name != null ~}
-            - export GIT_SSH_COMMAND='ssh -i ~/.ssh/git_rsa -o IdentitiesOnly=yes'
-            %{~ endif ~}
             - set -ex
             - cd ansible-repo
             %{~ if playbook_dir != null ~}
             - cd ${playbook_dir}
+            %{~ endif ~}
+            %{~ if ssh_key_name != null ~}
+            - chmod 0600 ~/.ssh/git_rsa
+            - eval "$(ssh-agent -s)"
+            - ssh-add ~/.ssh/git_rsa
             %{~ endif ~}
             # Install playbook dependencies
             - ansible-galaxy install -f -r requirements.yml || true
