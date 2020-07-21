@@ -50,7 +50,7 @@ phases:
             - cd ${playbook_dir}
             %{~ endif ~}
             %{~ if ssh_key_name != null ~}
-            - chmod 0600 ~/.ssh/git_rsa
+            - ssh-keyscan -p ${repo_port} ${repo_host} >> ~/.ssh/known_hosts
             - eval "$(ssh-agent -s)"
             - ssh-add ~/.ssh/git_rsa
             %{~ endif ~}
