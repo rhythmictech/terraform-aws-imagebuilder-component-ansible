@@ -15,7 +15,7 @@ locals {
 
   repo_parts = try(
     regex(
-      "^(?P<protocol>\\w+)://(?:(?P<user>\\w+)@)?(?P<host>[\\w\\._-]+)(?::(?P<port>\\d+))?/(?P<git_user>[\\w_-]+)/(?P<repo>[\\w_-]+).git",
+      "^(?P<protocol>\\w+)://(?:(?P<user>\\w+)@)?(?P<host>[\\w\\._-]+)(?::(?P<port>\\d+))?/(?P<git_user>[\\w_-]+)/(?P<repo>[\\w_-]+).git(?:\\s*\\-b\\s*[\\w_-]+)?$",
       var.playbook_repo
     ),
     null
