@@ -2,19 +2,20 @@ locals {
   has_ssh_key = var.ssh_key_secret_arn != null || var.ssh_key_secret_name != null
 
   data = templatefile("${path.module}/component.yml.tpl", {
-    description   = var.description
-    name          = var.name
-    playbook_dir  = var.playbook_dir
-    playbook_file = var.playbook_file
-    playbook_repo = var.playbook_repo
-    repo_host     = try(local.repo_parts.host, null)
-    repo_port     = coalesce(local.repo_parts.port, 22)
-    ssh_key_name  = try(data.aws_secretsmanager_secret.ssh_key[0].name, null)
+    additional_pkgs = var.additional_packages
+    description     = var.description
+    name            = var.name
+    playbook_dir    = var.playbook_dir
+    playbook_file   = var.playbook_file
+    playbook_repo   = var.playbook_repo
+    repo_host       = try(local.repo_parts.host, null)
+    repo_port       = coalesce(local.repo_parts.port, 22)
+    ssh_key_name    = try(data.aws_secretsmanager_secret.ssh_key[0].name, null)
   })
 
   repo_parts = try(
     regex(
-      "^(?P<protocol>\\w+)://(?:(?P<user>\\w+)@)?(?P<host>[\\w\\._-]+)(?::(?P<port>\\d+))?/(?P<git_user>[\\w_-]+)/(?P<repo>[\\w_-]+).git$",
+      "^(?P<protocol>\\w+)://(?:(?P<user>\\w+)@)?(?P<host>[\\w\\._-]+)(?::(?P<port>\\d+))?/(?P<git_user>[\\w_-]+)/(?P<repo>[\\w_-]+).git(?:\\s*\\-b\\s*[\\w_-]+)?$",
       var.playbook_repo
     ),
     null

@@ -11,7 +11,7 @@ phases:
         inputs:
           commands:
             # Install Ansible dependencies
-            - sudo yum install -y python python3 python-pip python3-pip git
+            - sudo yum install -y python python3 python-pip python3-pip git ${additional_pkgs}
             # Enable Ansible repository
             - sudo amazon-linux-extras enable ansible2
             # Install Ansible
@@ -48,6 +48,11 @@ phases:
             - cd ansible-repo
             %{~ if playbook_dir != null ~}
             - cd ${playbook_dir}
+            %{~ endif ~}
+            %{~ if ssh_key_name != null ~}
+            - ssh-keyscan -p ${repo_port} ${repo_host} >> ~/.ssh/known_hosts
+            - eval "$(ssh-agent -s)"
+            - ssh-add ~/.ssh/git_rsa
             %{~ endif ~}
             # Install playbook dependencies
             - ansible-galaxy install -f -r requirements.yml || true
