@@ -39,6 +39,11 @@ phases:
             %{~ if playbook_dir != null ~}
             - cd ${playbook_dir}
             %{~ endif ~}
+            %{~ if ssh_key_name != null ~}
+            - ssh-keyscan -p ${repo_port} ${repo_host} >> ~/.ssh/known_hosts
+            - eval "$(ssh-agent -s)"
+            - ssh-add ~/.ssh/git_rsa
+            %{~ endif ~}
             # Install playbook dependencies
             - ansible-galaxy install -f -r requirements.yml || true
             # Wait for cloud-init

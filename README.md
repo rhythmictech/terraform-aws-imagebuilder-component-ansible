@@ -7,6 +7,7 @@ Template repository for terraform modules. Good for any cloud and any provider.
 [![misspell](https://github.com/rhythmictech/terraform-aws-component-ansible/workflows/misspell/badge.svg?branch=master&event=push)](https://github.com/rhythmictech/terraform-aws-component-ansible/actions?query=workflow%3Amisspell+event%3Apush+branch%3Amaster)
 [![pre-commit-check](https://github.com/rhythmictech/terraform-aws-component-ansible/workflows/pre-commit-check/badge.svg?branch=master&event=push)](https://github.com/rhythmictech/terraform-aws-component-ansible/actions?query=workflow%3Apre-commit-check+event%3Apush+branch%3Amaster)
 <a href="https://twitter.com/intent/follow?screen_name=RhythmicTech"><img src="https://img.shields.io/twitter/follow/RhythmicTech?style=social&logo=twitter" alt="follow on Twitter"></a>
+
 Terraform module that creates EC2 Image Builder components with CloudFormation
 
 ## Example
@@ -111,6 +112,7 @@ This module bridges the gap allowing Terraform to create EC2 Image Builder compo
 | component\_version | Version of the component | `string` | n/a | yes |
 | name | name to use for component | `string` | n/a | yes |
 | playbook\_repo | git url for repo where ansible code lives | `string` | n/a | yes |
+| additional\_packages | Space separate list of additional packages that may be needed for your ansible | `string` | `""` | no |
 | change\_description | description of changes since last version | `string` | `null` | no |
 | cloudformation\_timeout | How long to wait (in minutes) for CFN to apply before giving up | `number` | `10` | no |
 | data\_uri | Use this to override the component document with one at a particualar URL endpoint | `string` | `null` | no |

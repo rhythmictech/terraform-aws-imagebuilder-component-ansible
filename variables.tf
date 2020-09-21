@@ -1,3 +1,9 @@
+variable "additional_packages" {
+  default     = ""
+  description = "Space separate list of additional packages that may be needed for your ansible"
+  type        = string
+}
+
 variable "change_description" {
   default     = null
   description = "description of changes since last version"
