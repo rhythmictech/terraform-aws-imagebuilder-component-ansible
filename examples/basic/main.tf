@@ -22,15 +22,23 @@ module "tags" {
   }, var.additional_tags)
 }
 
-module "test_component" {
+module "component_ansible_setup" {
+  source  = "rhythmictech/imagebuilder-component-ansible-setup/aws"
+  version = "~> 1.0.0-rc1"
+
+  component_version = "1.0.0"
+  description       = "Testing ansible setup"
+  name              = "testing-setup-component"
+  tags              = local.tags
+}
+
+module "component_ansible" {
   source  = "rhythmictech/imagebuilder-component-ansible/aws"
-  version = "~> 0.2.0"
+  version = "~> 2.0.0-rc1"
 
   component_version = "1.0.0"
   description       = "Testing component"
   name              = "testing-component"
-  playbook_dir      = "packer-generic-images/base"
-  playbook_repo     = "https://github.com/rhythmictech/packer-generic-images.git"
   tags              = local.tags
 }
 
@@ -46,7 +54,8 @@ module "test_recipe" {
   update         = true
 
   component_arns = [
-    module.test_component.component_arn,
+    module.component_ansible_setup.component_arn,
+    module.component_ansible.component_arn,
     "arn:aws:imagebuilder:us-east-1:aws:component/simple-boot-test-linux/1.0.0/1",
     "arn:aws:imagebuilder:us-east-1:aws:component/reboot-test-linux/1.0.0/1"
   ]
