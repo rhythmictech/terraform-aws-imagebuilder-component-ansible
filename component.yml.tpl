@@ -6,16 +6,6 @@ schemaVersion: 1.0
 phases:
   - name: build
     steps:
-      - name: ansible-install
-        action: ExecuteBash
-        inputs:
-          commands:
-            # Install Ansible dependencies
-            - sudo yum install -y python python3 python-pip python3-pip git ${additional_pkgs}
-            # Enable Ansible repository
-            - sudo amazon-linux-extras enable ansible2
-            # Install Ansible
-            - sudo yum install -y ansible
       - name: get-playbook
         action: ExecuteBash
         inputs:
@@ -60,11 +50,3 @@ phases:
             - while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done
             # Run playbook
             - ansible-playbook ${playbook_file}
-      - name: cleanup
-        action: ExecuteBash
-        inputs:
-          commands:
-            - sudo yum remove -y ansible
-            - sudo yum autoremove -y
-            - sudo rm -rf ansible-repo
-            - sudo rm -rf ~/.ansible/roles /usr/share/ansible/roles /etc/ansible/roles
