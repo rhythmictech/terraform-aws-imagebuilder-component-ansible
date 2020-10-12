@@ -1,5 +1,6 @@
 locals {
-  has_ssh_key = var.ssh_key_secret_arn != null || var.ssh_key_secret_name != null
+  has_ssh_key                    = var.ssh_key_secret_arn != null || var.ssh_key_secret_name != null
+  latest_component_minor_version = "${split(".", var.component_version)[0]}.${split(".", var.component_version)[1]}.x"
 
   data = templatefile("${path.module}/component.yml.tpl", {
     additional_pkgs = var.additional_packages
