@@ -14,3 +14,12 @@ output "component_arn" {
     aws_cloudformation_stack.this
   ]
 }
+
+output "latest_minor_version_arn" {
+  description = "ARN of the EC2 Image Builder Component"
+  value       = "arn:aws:imagebuilder:${local.region}:${local.account_id}:component/${lower(var.name)}/${local.latest_component_minor_version}"
+
+  depends_on = [
+    aws_cloudformation_stack.this
+  ]
+}

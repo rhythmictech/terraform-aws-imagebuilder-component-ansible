@@ -130,6 +130,7 @@ This module bridges the gap allowing Terraform to create EC2 Image Builder compo
 | Name | Description |
 |------|-------------|
 | component\_arn | ARN of the EC2 Image Builder Component |
+| latest\_minor\_version\_arn | ARN of the EC2 Image Builder Component |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
