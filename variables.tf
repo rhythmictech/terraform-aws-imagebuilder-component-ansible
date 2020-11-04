@@ -66,7 +66,7 @@ variable "playbook_file" {
 variable "playbook_repo" {
   description = <<EOD
 git url for repo where ansible code lives with provisioning playbook and requirements file
-can append with `-b BRANCH_NAME' to clone a specific branch
+can append with `-b BRANCH_NAME` to clone a specific branch
 EOD
   type        = string
 }
