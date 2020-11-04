@@ -111,7 +111,7 @@ This module bridges the gap allowing Terraform to create EC2 Image Builder compo
 |------|-------------|------|---------|:--------:|
 | component\_version | Version of the component | `string` | n/a | yes |
 | name | name to use for component | `string` | n/a | yes |
-| playbook\_repo | git url for repo where ansible code lives | `string` | n/a | yes |
+| playbook\_repo | git url for repo where ansible code lives with provisioning playbook and requirements file<br>can append with `-b BRANCH_NAME' to clone a specific branch<br>` | `string` | n/a | yes |
 | additional\_packages | Space separate list of additional packages that may be needed for your ansible | `string` | `""` | no |
 | change\_description | description of changes since last version | `string` | `null` | no |
 | cloudformation\_timeout | How long to wait (in minutes) for CFN to apply before giving up | `number` | `10` | no |
