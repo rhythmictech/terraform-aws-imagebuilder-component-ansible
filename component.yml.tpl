@@ -11,7 +11,6 @@ phases:
         inputs:
           commands:
             - set -ex
-            - export AWS_DEFAULT_REGION=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/\(.*\)[a-z]/\1/')
             # Get ssh key
             %{~ if ssh_key_name != null ~}
             # Install jq
