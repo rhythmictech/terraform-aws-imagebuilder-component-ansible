@@ -29,6 +29,7 @@ phases:
             - eval "$(ssh-agent -s)"
             - ssh-add ~/.ssh/git_rsa
             %{~ endif ~}
+            - rm -rf ansible-repo
             - git clone --depth 1 ${playbook_repo} ansible-repo
       - name: run-playbook
         action: ExecuteBash
