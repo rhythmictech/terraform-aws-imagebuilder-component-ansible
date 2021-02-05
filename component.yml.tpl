@@ -49,5 +49,7 @@ phases:
             - ansible-galaxy install -f -r requirements.yml || true
             # Wait for cloud-init
             - while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done
+            # Work around for missing environment
+            - export HOME=/root
             # Run playbook
             - ansible-playbook ${playbook_file}
