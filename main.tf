@@ -3,15 +3,14 @@ locals {
   latest_component_minor_version = "${split(".", var.component_version)[0]}.${split(".", var.component_version)[1]}.x"
 
   data = templatefile("${path.module}/component.yml.tpl", {
-    additional_pkgs = var.additional_packages
-    description     = var.description
-    name            = var.name
-    playbook_dir    = var.playbook_dir
-    playbook_file   = var.playbook_file
-    playbook_repo   = var.playbook_repo
-    repo_host       = try(local.repo_parts.host, null)
-    repo_port       = coalesce(local.repo_parts.port, 22)
-    ssh_key_name    = try(data.aws_secretsmanager_secret.ssh_key[0].name, null)
+    description   = var.description
+    name          = var.name
+    playbook_dir  = var.playbook_dir
+    playbook_file = var.playbook_file
+    playbook_repo = var.playbook_repo
+    repo_host     = try(local.repo_parts.host, null)
+    repo_port     = coalesce(local.repo_parts.port, 22)
+    ssh_key_name  = try(data.aws_secretsmanager_secret.ssh_key[0].name, null)
   })
 
   repo_parts = try(
