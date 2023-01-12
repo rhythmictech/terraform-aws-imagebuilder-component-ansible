@@ -8,8 +8,7 @@ Template repository for terraform modules. Good for any cloud and any provider.
 [![pre-commit-check](https://github.com/rhythmictech/terraform-aws-imagebuilder-component-ansible/workflows/pre-commit-check/badge.svg?branch=master&event=push)](https://github.com/rhythmictech/terraform-aws-imagebuilder-component-ansible/actions?query=workflow%3Apre-commit-check+event%3Apush+branch%3Amaster)
 <a href="https://twitter.com/intent/follow?screen_name=RhythmicTech"><img src="https://img.shields.io/twitter/follow/RhythmicTech?style=social&logo=twitter" alt="follow on Twitter"></a>
 
-Terraform module that creates EC2 Image Builder components with CloudFormation
-
+Terraform module that creates EC2 Image Builder components using ansible
 ## Example
 ```hcl
 data "aws_caller_identity" "current" {
@@ -89,7 +88,7 @@ module "test_pipeline" {
 ```
 
 ## About
-This module bridges the gap allowing Terraform to create EC2 Image Builder components (especially with Ansible) until native support is added to Terraform
+This module allows creation of an Ansible Playbook component for use in EC2 Image Builder Recipes.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
