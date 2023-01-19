@@ -8,8 +8,7 @@ Template repository for terraform modules. Good for any cloud and any provider.
 [![pre-commit-check](https://github.com/rhythmictech/terraform-aws-imagebuilder-component-ansible/workflows/pre-commit-check/badge.svg?branch=master&event=push)](https://github.com/rhythmictech/terraform-aws-imagebuilder-component-ansible/actions?query=workflow%3Apre-commit-check+event%3Apush+branch%3Amaster)
 <a href="https://twitter.com/intent/follow?screen_name=RhythmicTech"><img src="https://img.shields.io/twitter/follow/RhythmicTech?style=social&logo=twitter" alt="follow on Twitter"></a>
 
-Terraform module that creates EC2 Image Builder components with CloudFormation
-
+Terraform module that creates EC2 Image Builder components using ansible
 ## Example
 ```hcl
 data "aws_caller_identity" "current" {
@@ -89,48 +88,60 @@ module "test_pipeline" {
 ```
 
 ## About
-This module bridges the gap allowing Terraform to create EC2 Image Builder components (especially with Ansible) until native support is added to Terraform
+This module allows creation of an Ansible Playbook component for use in EC2 Image Builder Recipes.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12.28 |
-| aws | >= 2.44, < 4.0.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.22.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | >= 2.44, < 4.0.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.22.0 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_imagebuilder_component.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/imagebuilder_component) | resource |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
+| [aws_secretsmanager_secret.ssh_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| component\_version | Version of the component | `string` | n/a | yes |
-| name | name to use for component | `string` | n/a | yes |
-| playbook\_repo | git url for repo where ansible code lives with provisioning playbook and requirements file<br>can append with `-b BRANCH_NAME` to clone a specific branch | `string` | n/a | yes |
-| change\_description | description of changes since last version | `string` | `null` | no |
-| cloudformation\_timeout | How long to wait (in minutes) for CFN to apply before giving up | `number` | `10` | no |
-| data\_uri | Use this to override the component document with one at a particualar URL endpoint | `string` | `null` | no |
-| description | description of component | `string` | `null` | no |
-| kms\_key\_id | KMS key to use for encryption | `string` | `null` | no |
-| platform | platform of component (Linux or Windows) | `string` | `"Linux"` | no |
-| playbook\_dir | directory where playbook and requirements are found (if not root of repo) | `string` | `null` | no |
-| playbook\_file | path to playbook file, relative to `playbook_dir` | `string` | `"provision.yml"` | no |
-| ssh\_key\_secret\_arn | ARN of a secretsmanager secret containing an SSH key (use arn OR name, not both) | `string` | `null` | no |
-| ssh\_key\_secret\_name | Name of a secretsmanager secret containing an SSH key (use arn OR name, not both) | `string` | `null` | no |
-| tags | map of tags to use for CFN stack and component | `map(string)` | `{}` | no |
+| <a name="input_change_description"></a> [change\_description](#input\_change\_description) | description of changes since last version | `string` | `null` | no |
+| <a name="input_component_version"></a> [component\_version](#input\_component\_version) | Version of the component | `string` | n/a | yes |
+| <a name="input_data_uri"></a> [data\_uri](#input\_data\_uri) | Use this to override the component document with one at a particualar URL endpoint | `string` | `null` | no |
+| <a name="input_description"></a> [description](#input\_description) | description of component | `string` | `null` | no |
+| <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | KMS key to use for encryption | `string` | `null` | no |
+| <a name="input_name"></a> [name](#input\_name) | name to use for component | `string` | n/a | yes |
+| <a name="input_platform"></a> [platform](#input\_platform) | platform of component (Linux or Windows) | `string` | `"Linux"` | no |
+| <a name="input_playbook_dir"></a> [playbook\_dir](#input\_playbook\_dir) | directory where playbook and requirements are found (if not root of repo) | `string` | `null` | no |
+| <a name="input_playbook_file"></a> [playbook\_file](#input\_playbook\_file) | path to playbook file, relative to `playbook_dir` | `string` | `"provision.yml"` | no |
+| <a name="input_playbook_repo"></a> [playbook\_repo](#input\_playbook\_repo) | git url for repo where ansible code lives with provisioning playbook and requirements file<br>can append with `-b BRANCH_NAME` to clone a specific branch | `string` | n/a | yes |
+| <a name="input_ssh_key_secret_arn"></a> [ssh\_key\_secret\_arn](#input\_ssh\_key\_secret\_arn) | ARN of a secretsmanager secret containing an SSH key (use arn OR name, not both) | `string` | `null` | no |
+| <a name="input_ssh_key_secret_name"></a> [ssh\_key\_secret\_name](#input\_ssh\_key\_secret\_name) | Name of a secretsmanager secret containing an SSH key (use arn OR name, not both) | `string` | `null` | no |
+| <a name="input_supported_os_versions"></a> [supported\_os\_versions](#input\_supported\_os\_versions) | A set of operating system versions supported by the component. If the OS information is available, a prefix match is performed against the base image OS version during image recipe creation. | `set(string)` | `null` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | map of tags to use for CFN stack and component | `map(string)` | `{}` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| component\_arn | ARN of the EC2 Image Builder Component |
-| latest\_minor\_version\_arn | ARN of the EC2 Image Builder Component |
-
+| <a name="output_component_arn"></a> [component\_arn](#output\_component\_arn) | ARN of the EC2 Image Builder Component |
+| <a name="output_latest_minor_version_arn"></a> [latest\_minor\_version\_arn](#output\_latest\_minor\_version\_arn) | ARN of the EC2 Image Builder Component |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## The Giants underneath this module

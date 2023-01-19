@@ -4,12 +4,6 @@ variable "change_description" {
   type        = string
 }
 
-variable "cloudformation_timeout" {
-  default     = 10
-  description = "How long to wait (in minutes) for CFN to apply before giving up"
-  type        = number
-}
-
 variable "component_version" {
   description = "Version of the component"
   type        = string
@@ -75,6 +69,12 @@ variable "ssh_key_secret_name" {
   default     = null
   description = "Name of a secretsmanager secret containing an SSH key (use arn OR name, not both)"
   type        = string
+}
+
+variable "supported_os_versions" {
+  default     = null
+  description = "A set of operating system versions supported by the component. If the OS information is available, a prefix match is performed against the base image OS version during image recipe creation."
+  type        = set(string)
 }
 
 variable "tags" {
