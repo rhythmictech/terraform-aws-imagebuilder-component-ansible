@@ -1,3 +1,9 @@
+variable "ansible_venv_path" {
+  default     = "/var/tmp/ansible_venv/"
+  description = "Path at which to create the ansible virtual environment"
+  type        = string
+}
+
 variable "change_description" {
   default     = null
   description = "description of changes since last version"

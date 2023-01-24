@@ -45,8 +45,11 @@ phases:
             - eval "$(ssh-agent -s)"
             - ssh-add ~/.ssh/git_rsa
             %{~ endif ~}
+            # activate venv
+            - source ${ansible_venv_path}/bin/activate
             # Install playbook dependencies
-            - ansible-galaxy install -f -r requirements.yml || true
+            - ansible-galaxy role install -f -r requirements.yml || true
+            - ansible-galaxy collection install -f -r requirements.yml || true
             # Wait for cloud-init
             - while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done
             # Work around for missing environment
