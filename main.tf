@@ -10,7 +10,7 @@ locals {
     playbook_file     = var.playbook_file
     playbook_repo     = var.playbook_repo
     repo_host         = try(local.repo_parts.host, null)
-    repo_port         = coalesce(local.repo_parts.port, 22)
+    repo_port         = try(local.repo_parts.port, 22)
     ssh_key_name      = try(data.aws_secretsmanager_secret.ssh_key[0].name, null)
   })
 
