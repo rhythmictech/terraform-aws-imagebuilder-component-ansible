@@ -12,6 +12,7 @@ locals {
     repo_host         = try(local.repo_parts.host, null)
     repo_port         = try(local.repo_parts.port, 22)
     ssh_key_name      = try(data.aws_secretsmanager_secret.ssh_key[0].name, null)
+    use_venv          = var.ansible_use_venv
   })
 
   repo_parts = try(

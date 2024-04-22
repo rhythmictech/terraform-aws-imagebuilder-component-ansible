@@ -45,8 +45,10 @@ phases:
             - eval "$(ssh-agent -s)"
             - ssh-add ~/.ssh/git_rsa
             %{~ endif ~}
+            %{ if use_venv ~}
             # activate venv
             - source ${ansible_venv_path}/bin/activate
+            %{~ endif ~}
             # Install playbook dependencies
             - ansible-galaxy role install -f -r requirements.yml || true
             - ansible-galaxy collection install -f -r requirements.yml || true

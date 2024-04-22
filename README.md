@@ -95,7 +95,7 @@ This module allows creation of an Ansible Playbook component for use in EC2 Imag
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.22.0 |
 
 ## Providers
@@ -121,6 +121,8 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_ansible_use_venv"></a> [ansible\_use\_venv](#input\_ansible\_use\_venv) | Whether or not ansible should be run in a virtual environment | `bool` | `true` | no |
+| <a name="input_ansible_venv_path"></a> [ansible\_venv\_path](#input\_ansible\_venv\_path) | Path at which to create the ansible virtual environment | `string` | `"/var/tmp/ansible_venv/"` | no |
 | <a name="input_change_description"></a> [change\_description](#input\_change\_description) | description of changes since last version | `string` | `null` | no |
 | <a name="input_component_version"></a> [component\_version](#input\_component\_version) | Version of the component | `string` | n/a | yes |
 | <a name="input_data_uri"></a> [data\_uri](#input\_data\_uri) | Use this to override the component document with one at a particualar URL endpoint | `string` | `null` | no |
