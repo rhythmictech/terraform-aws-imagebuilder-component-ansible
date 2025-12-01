@@ -47,6 +47,8 @@ phases:
             %{~ endif ~}
             - export PYENV_ROOT="${ansible_pyenv_path}"
             - export PATH="$PYENV_ROOT/bin:$PATH"
+            - eval "$(pyenv init -)"
+            - pyenv activate ${python_version}
             # Install playbook dependencies
             - ansible-galaxy role install -f -r requirements.yml || true
             - ansible-galaxy collection install -f -r requirements.yml || true

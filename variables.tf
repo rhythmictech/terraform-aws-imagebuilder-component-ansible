@@ -65,6 +65,12 @@ EOD
   type        = string
 }
 
+variable "python_version" {
+  default     = "3.12"
+  description = "Version of python to install via pyenv for use with ansible"
+  type        = string
+}
+
 variable "ssh_key_secret_arn" {
   default     = null
   description = "ARN of a secretsmanager secret containing an SSH key (use arn OR name, not both)"
