@@ -38,16 +38,16 @@ phases:
             - eval "$(ssh-agent -s)"
             - ssh-add ~/.ssh/git_rsa
             %{~ endif ~}
-            - rm -rf ~/ansible-repo
-            - git clone --depth 1 ${playbook_repo} ~/ansible-repo
+            - rm -rf ansible-repo
+            - git clone --depth 1 ${playbook_repo} ansible-repo
       - name: run-playbook
         action: ExecuteBash
         inputs:
           commands:
             - set -ex
-            - cd ~/ansible-repo
+            - cd ansible-repo
             %{~ if playbook_dir != null ~}
-            - cd ~/ansible-repo/${playbook_dir}
+            - cd ${playbook_dir}
             %{~ endif ~}
             %{~ if ssh_key_name != null ~}
             - ssh-keyscan -p ${repo_port} ${repo_host} >> ~/.ssh/known_hosts
@@ -91,5 +91,5 @@ phases:
         action: ExecuteBash
         inputs:
           commands:
-            - rm -rf ~/ansible-repo ~/.ansible
+            - rm -rf ansible-repo ~/.ansible
             - rm -f ~/.ssh/git_rsa ~/.ssh/known_hosts
