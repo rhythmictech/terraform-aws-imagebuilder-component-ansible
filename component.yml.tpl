@@ -11,6 +11,7 @@ phases:
         inputs:
           commands:
             - set -ex
+            - sudo yum install -y git
             # Get ssh key
             %{~ if ssh_key_name != null ~}
             # Install jq
