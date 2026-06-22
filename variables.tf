@@ -67,8 +67,23 @@ EOD
 
 variable "python_version" {
   default     = "3.12"
-  description = "Version of python to install via pyenv for use with ansible"
+  description = "Version of python to install via pyenv for use with ansible (only used when `runner` is `pyenv`)"
   type        = string
+}
+
+variable "runner" {
+  default     = "pyenv"
+  description = <<EOD
+How to run ansible on the target instance:
+- `pyenv`: activate the `ansible` pyenv virtualenv created by the companion setup component (default)
+- `uv`: run `uv sync` against the pyproject.toml in `playbook_dir` (or the repo root), then execute ansible via `uv run` (assumes `uv` is already installed)
+EOD
+  type        = string
+
+  validation {
+    condition     = contains(["pyenv", "uv"], var.runner)
+    error_message = "runner must be either \"pyenv\" or \"uv\"."
+  }
 }
 
 variable "ssh_key_secret_arn" {

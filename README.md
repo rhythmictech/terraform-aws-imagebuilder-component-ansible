@@ -121,8 +121,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_ansible_use_venv"></a> [ansible\_use\_venv](#input\_ansible\_use\_venv) | Whether or not ansible should be run in a virtual environment | `bool` | `true` | no |
-| <a name="input_ansible_venv_path"></a> [ansible\_venv\_path](#input\_ansible\_venv\_path) | Path at which to create the ansible virtual environment | `string` | `"/var/tmp/ansible_venv/"` | no |
+| <a name="input_ansible_pyenv_path"></a> [ansible\_pyenv\_path](#input\_ansible\_pyenv\_path) | Path at which to create the ansible virtual environment | `string` | `"/var/tmp/ansible_pyenv"` | no |
 | <a name="input_change_description"></a> [change\_description](#input\_change\_description) | description of changes since last version | `string` | `null` | no |
 | <a name="input_component_version"></a> [component\_version](#input\_component\_version) | Version of the component | `string` | n/a | yes |
 | <a name="input_data_uri"></a> [data\_uri](#input\_data\_uri) | Use this to override the component document with one at a particualar URL endpoint | `string` | `null` | no |
@@ -133,6 +132,8 @@ No modules.
 | <a name="input_playbook_dir"></a> [playbook\_dir](#input\_playbook\_dir) | directory where playbook and requirements are found (if not root of repo) | `string` | `null` | no |
 | <a name="input_playbook_file"></a> [playbook\_file](#input\_playbook\_file) | path to playbook file, relative to `playbook_dir` | `string` | `"provision.yml"` | no |
 | <a name="input_playbook_repo"></a> [playbook\_repo](#input\_playbook\_repo) | git url for repo where ansible code lives with provisioning playbook and requirements file<br>can append with `-b BRANCH_NAME` to clone a specific branch | `string` | n/a | yes |
+| <a name="input_python_version"></a> [python\_version](#input\_python\_version) | Version of python to install via pyenv for use with ansible (only used when `runner` is `pyenv`) | `string` | `"3.12"` | no |
+| <a name="input_runner"></a> [runner](#input\_runner) | How to run ansible on the target instance:<br>- `pyenv`: activate the `ansible` pyenv virtualenv created by the companion setup component (default)<br>- `uv`: run `uv sync` against the pyproject.toml in `playbook_dir` (or the repo root), then execute ansible via `uv run` (assumes `uv` is already installed) | `string` | `"pyenv"` | no |
 | <a name="input_ssh_key_secret_arn"></a> [ssh\_key\_secret\_arn](#input\_ssh\_key\_secret\_arn) | ARN of a secretsmanager secret containing an SSH key (use arn OR name, not both) | `string` | `null` | no |
 | <a name="input_ssh_key_secret_name"></a> [ssh\_key\_secret\_name](#input\_ssh\_key\_secret\_name) | Name of a secretsmanager secret containing an SSH key (use arn OR name, not both) | `string` | `null` | no |
 | <a name="input_supported_os_versions"></a> [supported\_os\_versions](#input\_supported\_os\_versions) | A set of operating system versions supported by the component. If the OS information is available, a prefix match is performed against the base image OS version during image recipe creation. | `set(string)` | `null` | no |
