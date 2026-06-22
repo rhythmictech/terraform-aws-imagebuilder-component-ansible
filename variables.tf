@@ -76,7 +76,7 @@ variable "runner" {
   description = <<EOD
 How to run ansible on the target instance:
 - `pyenv`: activate the `ansible` pyenv virtualenv created by the companion setup component (default)
-- `uv`: run `uv sync` against the pyproject.toml in `playbook_dir` (or the repo root), then execute ansible via `uv run` (assumes `uv` is already installed)
+- `uv`: install `uv` into an isolated, unmanaged location (removed on exit), run `uv sync` against the pyproject.toml in `playbook_dir` (or the repo root), then execute ansible via `uv run`
 EOD
   type        = string
 

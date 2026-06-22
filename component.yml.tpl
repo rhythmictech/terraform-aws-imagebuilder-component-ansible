@@ -54,6 +54,11 @@ phases:
             - ssh-add ~/.ssh/git_rsa
             %{~ endif ~}
             %{~ if runner == "uv" ~}
+            # Install uv into an isolated, unmanaged location and remove it on exit
+            - UV_INSTALL_DIR="$(mktemp -d)"
+            - trap 'rm -rf "$UV_INSTALL_DIR"' EXIT
+            - curl -LsSf https://astral.sh/uv/install.sh | env UV_UNMANAGED_INSTALL="$UV_INSTALL_DIR" sh
+            - export PATH="$UV_INSTALL_DIR:$PATH"
             # Set up the ansible environment via uv
             - uv sync
             %{~ else ~}
