@@ -83,6 +83,13 @@ phases:
             # Run playbook
             %{~ if runner == "uv" ~}
             - uv run ansible-playbook ${playbook_file}
+            - rm -rf "$UV_INSTALL_DIR"
             %{~ else ~}
             - ansible-playbook ${playbook_file}
             %{~ endif ~}
+      - name: cleanup-playbook 
+        action: ExecuteBash
+        inputs:
+          commands:
+            - rm -rf ansible-repo ~/.ansible
+            - rm -f ~/.ssh/git_rsa ~/.ssh/known_hosts
