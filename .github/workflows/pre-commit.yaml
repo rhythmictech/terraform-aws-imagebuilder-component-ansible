@@ -20,7 +20,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@ed3a0531877aca392eb870f440d9ae7aba83a6bd # v1.4.0
         with:
-          terraform_version: ~0.12.29
+          terraform_version: ~1.14.0
       - name: initialize Terraform
         run: terraform init --backend=false
       - name: pre-commit
