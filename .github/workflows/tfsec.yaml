@@ -12,15 +12,15 @@ jobs:
   tfsec:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: setup Terraform
-        uses: hashicorp/setup-terraform@v1
+        uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
         with:
           terraform_version: ~0.12.29
       - name: Terraform init
         run: terraform init --backend=false
       - name: tfsec
-        uses: reviewdog/action-tfsec@master
+        uses: reviewdog/action-tfsec@a2f2edbf61c6bb22849de705d304b9d2af5f69cd # v1.30.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-check
