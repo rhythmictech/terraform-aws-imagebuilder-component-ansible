@@ -16,19 +16,28 @@ locals {
     ssh_key_name       = try(data.aws_secretsmanager_secret.ssh_key[0].name, null)
   })
 
-  # Matches protocol-style URLs (ssh://git@host:port/user/repo.git) first,
-  # then falls back to SCP-style URLs (git@host:path, e.g. Azure DevOps
-  # username@vs-ssh.visualstudio.com:v3/org/project/repo), which have no port.
+  # Strip an optional trailing "-b <branch>" / "--branch <branch>" clone
+  # argument before parsing the URL itself.
+  repo_url = trimspace(replace(trimspace(var.playbook_repo), "/\\s+(-b|--branch)[ =]+\\S+$/", ""))
+
+  # Extract host/port for ssh-keyscan. Only the host and port matter here,
+  # so the path is intentionally unconstrained (any depth, ".git" optional)
+  # to support GitHub, GitLab subgroups, GitHub Enterprise, Bitbucket,
+  # Azure DevOps (dev.azure.com/org/project/_git/repo), etc.
+  # Matches protocol-style URLs (scheme://[user[:token]@]host[:port][/path])
+  # first, then falls back to SCP-style URLs ([user@]host:path, e.g. Azure
+  # DevOps username@vs-ssh.visualstudio.com:v3/org/project/repo), which
+  # have no port syntax.
   repo_parts = try(
     regex(
-      "^(?P<protocol>\\w+)://(?:(?P<user>\\w+)@)?(?P<host>[\\w\\._-]+)(?::(?P<port>\\d+))?/(?P<git_user>[\\w_-]+)/(?P<repo>[\\w_-]+).git(?:\\s*\\-b\\s*[\\w_-]+)?$",
-      var.playbook_repo
+      "^(?P<protocol>[A-Za-z][A-Za-z0-9+.-]*)://(?:(?P<user>[^@/\\s]+)@)?(?P<host>[^:/@\\s]+)(?::(?P<port>\\d+))?(?:/(?P<path>\\S*))?$",
+      local.repo_url
     ),
     merge(
-      { port = null },
+      { protocol = "ssh", port = null },
       regex(
-        "^(?:(?P<user>[\\w\\.-]+)@)?(?P<host>[\\w\\.-]+):(?P<path>[\\w\\.-][\\w\\./-]*?)(?:\\.git)?(?:\\s*-b\\s*[\\w_-]+)?$",
-        var.playbook_repo
+        "^(?:(?P<user>[^@/\\s]+)@)?(?P<host>[^:/@\\s]+):(?P<path>\\S+)$",
+        local.repo_url
       )
     ),
     null
@@ -61,5 +70,10 @@ resource "aws_imagebuilder_component" "this" {
 
   lifecycle {
     create_before_destroy = true
+
+    precondition {
+      condition     = var.data_uri != null || !local.has_ssh_key || local.repo_parts != null
+      error_message = "playbook_repo could not be parsed for its host, which is required for ssh-keyscan when an SSH key is configured. Supported forms: scheme://[user@]host[:port]/path (e.g. https://, ssh://, git://) or SCP-style [user@]host:path, optionally followed by \"-b <branch>\"."
+    }
   }
 }

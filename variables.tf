@@ -60,6 +60,9 @@ variable "playbook_file" {
 variable "playbook_repo" {
   description = <<EOD
 git url for repo where ansible code lives with provisioning playbook and requirements file
+accepts protocol-style urls (`https://`, `ssh://`, `git://`, with optional user/token and port)
+and SCP-style urls (`[user@]host:path`), covering GitHub, GitLab (incl. subgroups),
+GitHub Enterprise, Bitbucket, Azure DevOps, etc.
 can append with `-b BRANCH_NAME` to clone a specific branch
 EOD
   type        = string

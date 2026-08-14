@@ -12,3 +12,5 @@
 *.pem
 
 *test.yml
+
+.claude
