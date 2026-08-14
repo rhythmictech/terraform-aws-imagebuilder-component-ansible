@@ -13,7 +13,7 @@ phases:
             - set -ex
             - sudo yum install -y git
             # Get ssh key
-            %{~ if ssh_key_name != null ~}
+            %{~ if ssh_key_name != null && repo_host != null ~}
             # Install jq
             - sudo yum install -y jq
             - mkdir -p ~/.ssh
@@ -49,7 +49,7 @@ phases:
             %{~ if playbook_dir != null ~}
             - cd ${playbook_dir}
             %{~ endif ~}
-            %{~ if ssh_key_name != null ~}
+            %{~ if ssh_key_name != null && repo_host != null ~}
             - ssh-keyscan -p ${repo_port} ${repo_host} >> ~/.ssh/known_hosts
             - eval "$(ssh-agent -s)"
             - ssh-add ~/.ssh/git_rsa
