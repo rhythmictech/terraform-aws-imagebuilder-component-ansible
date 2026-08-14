@@ -12,14 +12,24 @@ locals {
     python_version     = var.python_version
     runner             = var.runner
     repo_host          = try(local.repo_parts.host, null)
-    repo_port          = coalesce(local.repo_parts.port, 22)
+    repo_port          = try(coalesce(local.repo_parts.port, 22), 22)
     ssh_key_name       = try(data.aws_secretsmanager_secret.ssh_key[0].name, null)
   })
 
+  # Matches protocol-style URLs (ssh://git@host:port/user/repo.git) first,
+  # then falls back to SCP-style URLs (git@host:path, e.g. Azure DevOps
+  # username@vs-ssh.visualstudio.com:v3/org/project/repo), which have no port.
   repo_parts = try(
     regex(
       "^(?P<protocol>\\w+)://(?:(?P<user>\\w+)@)?(?P<host>[\\w\\._-]+)(?::(?P<port>\\d+))?/(?P<git_user>[\\w_-]+)/(?P<repo>[\\w_-]+).git(?:\\s*\\-b\\s*[\\w_-]+)?$",
       var.playbook_repo
+    ),
+    merge(
+      { port = null },
+      regex(
+        "^(?:(?P<user>[\\w\\.-]+)@)?(?P<host>[\\w\\.-]+):(?P<path>[\\w\\.-][\\w\\./-]*?)(?:\\.git)?(?:\\s*-b\\s*[\\w_-]+)?$",
+        var.playbook_repo
+      )
     ),
     null
   )
